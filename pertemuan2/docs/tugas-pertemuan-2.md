@@ -44,12 +44,9 @@ Saat salah satu kontak diketuk, aplikasi membuka halaman detail yang menampilkan
 
 ## Screenshot Halaman Daftar
 
-> **Placeholder screenshot:** tambahkan tangkapan layar halaman utama Daftar Kontak di sini.
->
-> Contoh nama berkas: `screenshots/daftar-kontak.png`
+![Screenshot Daftar Kontak](screenshots/daftar-kontak.png)
 
 ## Screenshot Halaman Detail
 
-> **Placeholder screenshot:** tambahkan tangkapan layar halaman detail kontak di sini.
->
-> Contoh nama berkas: `screenshots/detail-kontak.png`
+![Screenshot Detail Kontak](screenshots/detail-kontak.png)
+
