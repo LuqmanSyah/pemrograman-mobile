@@ -59,12 +59,9 @@ State aplikasi dikelola oleh `BelanjaModel` yang merupakan turunan `ChangeNotifi
 
 ## Screenshot Halaman Daftar
 
-> **Placeholder screenshot:** tambahkan tangkapan layar halaman Daftar Belanja di sini.
->
-> Contoh nama berkas: `screenshots/daftar-belanja.png`
+![Screenshot Daftar Belanja](screenshots/daftar-belanja.png)
 
 ## Screenshot Form dan Validasi
 
-> **Placeholder screenshot:** tambahkan tangkapan layar halaman Tambah Barang dengan pesan error validasi di sini.
->
-> Contoh nama berkas: `screenshots/form-validasi.png`
+![Screenshot Form Validasi](screenshots/form-validasi.png)
+
