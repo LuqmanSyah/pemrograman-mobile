@@ -8,37 +8,37 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Praktikum 1', home: const CounterPage());
+    return MaterialApp(title: 'Tugas 1', home: const KartuPerkenalan());
   }
 }
 
-class CounterPage extends StatefulWidget {
-  const CounterPage({super.key});
-  @override
-  State<CounterPage> createState() => _CounterPageState();
-}
-
-class _CounterPageState extends State<CounterPage> {
-  int _count = 0;
+class KartuPerkenalan extends StatelessWidget {
+  const KartuPerkenalan({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Counter Saya')),
+      appBar: AppBar(
+        title: const Text('Kartu Perkenalan'),
+        backgroundColor: Colors.indigo,
+        foregroundColor: Colors.white,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.flutter_dash, size: 80, color: Colors.blue),
+            const Icon(Icons.person, size: 100, color: Colors.indigo),
             SizedBox(height: 16),
-            Text('Halo, nama saya Luqman!', style: TextStyle(fontSize: 24)),
-            Text('NIM: 20240801016'),
-            Text('$_count', style: const TextStyle(fontSize: 48)),
+            const Text(
+              'Luqman',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 8),
+            const Text('NIM: 20240801016'),
+            const Text('Jurusan: Teknik Informatika'),
+            SizedBox(height: 8),
+            const Text('Hobi: Main Game'),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => setState(() => _count++),
-        child: const Icon(Icons.add),
       ),
     );
   }

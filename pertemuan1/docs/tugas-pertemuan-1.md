@@ -47,6 +47,4 @@ Layout aplikasi menggunakan `Center` dan `Column` untuk menempatkan informasi se
 
 ## Screenshot Aplikasi
 
-> **Placeholder screenshot:** tambahkan tangkapan layar aplikasi Kartu Perkenalan yang sedang berjalan di sini.
->
-> Contoh nama berkas: `screenshots/kartu-perkenalan.png`
+![Screenshot aplikasi Kartu Perkenalan](screenshots/kartu-perkenalan.png)
