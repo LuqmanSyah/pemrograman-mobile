@@ -58,30 +58,20 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-class Makanan {
+class Kontak {
   final String nama;
-  final int harga;
-  const Makanan(this.nama, this.harga);
+  final String nomorTelepon;
+  final String email;
+  const Kontak(this.nama, this.nomorTelepon, this.email);
 }
 
-const daftarMenu = [
-  Makanan('Nasi Goreng', 15000),
-  Makanan('Mie Ayam', 12000),
-  Makanan('Es Teh', 4000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
-  Makanan('Ayam Bakar', 20000),
+const daftarKontak = [
+  Kontak('Luqman Syahreno', '081234567890', 'luqman@example.com'),
+  Kontak('Andi Setiawan', '082345678901', 'andi@example.com'),
+  Kontak('Budi Santoso', '083456789012', 'budi@example.com'),
+  Kontak('Citra Lestari', '084567890123', 'citra@example.com'),
+  Kontak('Dewi Anggraini', '085678901234', 'dewi@example.com'),
+  Kontak('Eko Pratama', '086789012345', 'eko@example.com'),
 ];
 
 class MenuPage extends StatelessWidget {
@@ -89,25 +79,22 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Daftar Menu')),
+      appBar: AppBar(title: const Text('Daftar Kontak')),
       body: ListView.builder(
-        itemCount: daftarMenu.length,
+        itemCount: daftarKontak.length,
         itemBuilder: (context, index) {
-          final item = daftarMenu[index];
-          return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            child: ListTile(
-              leading: const Icon(Icons.restaurant),
-              title: Text(item.nama),
-              subtitle: Text('Rp ${item.harga}'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => DetailPage(makanan: item)),
-                );
-              },
-            ),
+          final kontak = daftarKontak[index];
+          return ListTile(
+            leading: CircleAvatar(child: Text(kontak.nama.substring(0, 1))),
+            title: Text(kontak.nama),
+            subtitle: Text(kontak.nomorTelepon),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => DetailPage(kontak: kontak)),
+              );
+            },
           );
         },
       ),
@@ -116,20 +103,28 @@ class MenuPage extends StatelessWidget {
 }
 
 class DetailPage extends StatelessWidget {
-  final Makanan makanan;
-  const DetailPage({super.key, required this.makanan});
+  final Kontak kontak;
+  const DetailPage({super.key, required this.kontak});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(makanan.nama)),
+      appBar: AppBar(title: Text(kontak.nama)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.restaurant_menu, size: 80),
+            CircleAvatar(
+              radius: 40,
+              child: Text(
+                kontak.nama.substring(0, 1),
+                style: const TextStyle(fontSize: 32),
+              ),
+            ),
             const SizedBox(height: 16),
-            Text(makanan.nama, style: const TextStyle(fontSize: 24)),
-            Text('Rp ${makanan.harga}'),
+            Text(kontak.nama, style: const TextStyle(fontSize: 24)),
+            const SizedBox(height: 8),
+            Text(kontak.nomorTelepon),
+            Text(kontak.email),
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
