@@ -105,12 +105,24 @@ class Catatan {
   final int? id;
   final String judul;
   final String isi;
-  const Catatan({this.id, required this.judul, required this.isi});
-  Map<String, Object?> toMap() => {'id': id, 'judul': judul, 'isi': isi};
+  final String dibuat;
+  const Catatan({
+    this.id,
+    required this.judul,
+    required this.isi,
+    required this.dibuat,
+  });
+  Map<String, Object?> toMap() => {
+    'id': id,
+    'judul': judul,
+    'isi': isi,
+    'dibuat': dibuat,
+  };
   factory Catatan.fromMap(Map<String, Object?> m) => Catatan(
     id: m['id'] as int,
     judul: m['judul'] as String,
     isi: m['isi'] as String,
+    dibuat: m['dibuat'] as String? ?? '',
   );
 }
 
@@ -121,14 +133,20 @@ class DbHelper {
     final path = p.join(await getDatabasesPath(), 'catatan.db');
     _db = await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (db, version) {
         return db.execute(
           'CREATE TABLE catatan('
           'id INTEGER PRIMARY KEY AUTOINCREMENT, '
           'judul TEXT NOT NULL, '
-          'isi TEXT NOT NULL)',
+          'isi TEXT NOT NULL, '
+          'dibuat TEXT)',
         );
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 2) {
+          await db.execute('ALTER TABLE catatan ADD COLUMN dibuat TEXT');
+        }
       },
     );
     return _db!;
@@ -139,9 +157,17 @@ class DbHelper {
     return db.insert('catatan', c.toMap());
   }
 
-  static Future<List<Catatan>> semua() async {
+  static Future<List<Catatan>> semua({
+    String kata = '',
+    String orderBy = 'id DESC',
+  }) async {
     final db = await database;
-    final rows = await db.query('catatan', orderBy: 'id DESC');
+    final rows = await db.query(
+      'catatan',
+      where: kata.trim().isEmpty ? null : 'judul LIKE ?',
+      whereArgs: kata.trim().isEmpty ? null : ['%${kata.trim()}%'],
+      orderBy: orderBy,
+    );
     return rows.map(Catatan.fromMap).toList();
   }
 
@@ -164,16 +190,61 @@ class CatatanPage extends StatefulWidget {
 
 class _CatatanPageState extends State<CatatanPage> {
   late Future<List<Catatan>> _future;
+  String _kata = '';
+  String _urutan = 'terbaru';
+
   @override
   void initState() {
     super.initState();
-    _future = DbHelper.semua();
+    _future = _mulai();
   }
+
+  Future<List<Catatan>> _mulai() async {
+    final prefs = await SharedPreferences.getInstance();
+    final urutan = prefs.getString('urutan') ?? 'terbaru';
+    if (mounted) setState(() => _urutan = urutan);
+    return DbHelper.semua(kata: _kata, orderBy: _orderBy);
+  }
+
+  String get _orderBy => _urutan == 'terbaru' ? 'id DESC' : 'id ASC';
 
   void _muat() {
     setState(() {
-      _future = DbHelper.semua();
+      _future = DbHelper.semua(kata: _kata, orderBy: _orderBy);
     });
+  }
+
+  Future<void> _ubahUrutan(String nilai) async {
+    setState(() {
+      _urutan = nilai;
+      _future = DbHelper.semua(kata: _kata, orderBy: _orderBy);
+    });
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('urutan', nilai);
+  }
+
+  Future<void> _konfirmasiHapus(Catatan catatan) async {
+    final hapus = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Hapus catatan ini?'),
+        content: Text('Catatan "${catatan.judul}" akan dihapus.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Batal'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Hapus'),
+          ),
+        ],
+      ),
+    );
+    if (hapus != true) return;
+    await DbHelper.hapus(catatan.id!);
+    if (!mounted) return;
+    _muat();
   }
 
   Future<void> _buka([Catatan? catatan]) async {
@@ -188,43 +259,76 @@ class _CatatanPageState extends State<CatatanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Catatan Saya')),
-      body: FutureBuilder<List<Catatan>>(
-        future: _future,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('Galat: ${snapshot.error}'));
-          }
-          final data = snapshot.data!;
-          if (data.isEmpty) {
-            return const Center(child: Text('Belum ada catatan'));
-          }
-          return ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, i) {
-              final c = data[i];
-              return ListTile(
-                title: Text(c.judul),
-                subtitle: Text(
-                  c.isi,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                onTap: () => _buka(c),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () async {
-                    await DbHelper.hapus(c.id!);
-                    _muat();
-                  },
-                ),
-              );
+      appBar: AppBar(
+        title: const Text('Catatan Saya'),
+        actions: [
+          DropdownButton<String>(
+            value: _urutan,
+            underline: const SizedBox.shrink(),
+            items: const [
+              DropdownMenuItem(value: 'terbaru', child: Text('Terbaru')),
+              DropdownMenuItem(value: 'terlama', child: Text('Terlama')),
+            ],
+            onChanged: (nilai) {
+              if (nilai != null) _ubahUrutan(nilai);
             },
-          );
-        },
+          ),
+          const SizedBox(width: 8),
+        ],
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+            child: TextField(
+              decoration: const InputDecoration(
+                labelText: 'Cari judul',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (kata) {
+                _kata = kata;
+                _muat();
+              },
+            ),
+          ),
+          Expanded(
+            child: FutureBuilder<List<Catatan>>(
+              future: _future,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (snapshot.hasError) {
+                  return Center(child: Text('Galat: ${snapshot.error}'));
+                }
+                final data = snapshot.data!;
+                if (data.isEmpty) {
+                  return const Center(child: Text('Belum ada catatan'));
+                }
+                return ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, i) {
+                    final c = data[i];
+                    return ListTile(
+                      title: Text(c.judul),
+                      subtitle: Text(
+                        '${c.isi}\nDibuat: ${c.dibuat}',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      onTap: () => _buka(c),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () => _konfirmasiHapus(c),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _buka(),
@@ -265,6 +369,7 @@ class _FormCatatanPageState extends State<FormCatatanPage> {
       id: widget.catatan?.id,
       judul: _judul.text.trim(),
       isi: _isi.text.trim(),
+      dibuat: widget.catatan?.dibuat ?? DateTime.now().toIso8601String(),
     );
     if (widget.catatan == null) {
       await DbHelper.tambah(c);

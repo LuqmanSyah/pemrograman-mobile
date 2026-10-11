@@ -44,10 +44,6 @@ class MyApp extends StatelessWidget {
             }
             return null;
           },
-          home: Scaffold(
-            appBar: AppBar(title: const Text('Tema')),
-            body: const PengaturanTab(),
-          ),
         );
       },
     );
