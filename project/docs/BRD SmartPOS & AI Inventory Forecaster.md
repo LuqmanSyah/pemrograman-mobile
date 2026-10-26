@@ -4,15 +4,6 @@
 
 > **Catatan studi kasus:** Dokumen ini ditulis untuk tugas mata kuliah dengan skenario dan persona fiktif (Toko Maju Jaya). Seluruh angka dan kondisi usaha bersifat hipotetis. Penanda **\[Usulan\]** berarti nilai asumsi yang ditetapkan penulis untuk studi kasus ini dan dapat diubah.
 
-## Riwayat Versi
-
-| Versi | Tanggal | Penulis | Perubahan |
-| --- | --- | --- | --- |
-| 1.0 | - | Reno | Draft awal |
-| 1.1 | 24 Okt 2026 | Reno | Penambahan stakeholder, metrik sukses, ID dan prioritas kebutuhan, risiko, timeline, kriteria penerimaan, keputusan teknologi (Flutter, Laravel, FastAPI) |
-| 1.2 | 24 Okt 2026 | Reno | Skenario fiktif Toko Maju Jaya, persona, baseline hipotetis, pemangkasan ruang lingkup ke MVP, penyesuaian asumsi dan kriteria penerimaan |
-| 1.3 | 25 Okt 2026 | Reno | Perubahan ke online-only, penambahan integrasi Midtrans (sandbox), pemindahan offline-first dan bundling ke pengembangan lanjutan |
-
 ## 1. Ringkasan Eksekutif
 
 SmartPOS & AI Inventory Forecaster adalah sistem yang memadukan aplikasi *Point of Sale* (POS) mobile dengan pembayaran digital dan analitik prediktif berbasis *Machine Learning*. Sistem ditujukan bagi UMKM dan perusahaan dagang ritel yang kesulitan mengelola stok: barang menumpuk menjadi *dead stock* di satu sisi, sementara barang laris sering kehabisan (*stockout*) di sisi lain.
