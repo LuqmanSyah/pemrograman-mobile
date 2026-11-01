@@ -20,7 +20,7 @@ class PosHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 10),
+      padding: const EdgeInsets.fromLTRB(16, 14, 16, 12),
       decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(bottom: BorderSide(color: AppColors.border)),
@@ -41,11 +41,11 @@ class PosHeader extends StatelessWidget {
               children: [
                 Text(title,
                     style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w700)),
+                        fontSize: 17, fontWeight: FontWeight.w800)),
                 if (subtitle != null)
                   Text(subtitle!,
                       style: const TextStyle(
-                          color: AppColors.muted, fontSize: 10)),
+                          color: AppColors.muted, fontSize: 11)),
               ],
             ),
           ),
@@ -71,7 +71,7 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 48,
+      height: 52,
       width: double.infinity,
       child: FilledButton.icon(
         onPressed: onPressed,
@@ -90,64 +90,54 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(7, 9, 9, 8),
+      padding: const EdgeInsets.fromLTRB(12, 12, 12, 11),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: AppColors.border),
-        borderRadius: BorderRadius.circular(9),
+        borderRadius: BorderRadius.circular(13),
       ),
       child: Column(
         children: [
           Row(
             children: [
+              Container(
+                width: 38,
+                height: 38,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: product.sku == 'A01'
+                      ? const Color(0xFFFFF0BE)
+                      : product.sku == 'B02'
+                          ? const Color(0xFFFFE9CF)
+                          : const Color(0xFFC9F5FA),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(product.sku,
+                    style: const TextStyle(
+                        color: AppColors.warning, fontSize: 11,
+                        fontWeight: FontWeight.w800)),
+              ),
+              const SizedBox(width: 10),
               Expanded(
                 child: Text(product.name,
                     style: const TextStyle(fontWeight: FontWeight.w700)),
               ),
-              const Icon(Icons.delete_outline, size: 18, color: AppColors.muted),
+              Text(formatRupiah(product.total),
+                  style: const TextStyle(fontWeight: FontWeight.w700)),
             ],
           ),
           Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              '${formatRupiah(product.price)} / unit · SKU ${product.sku}',
+              '${product.quantity} x ${formatRupiah(product.price)}',
               style: const TextStyle(color: AppColors.muted, fontSize: 10),
             ),
           ),
           const SizedBox(height: 5),
-          Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.tealSoft,
-                  borderRadius: BorderRadius.circular(7),
-                ),
-                child: Row(
-                  children: [
-                    _quantityButton(Icons.remove),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Text('${product.quantity}'),
-                    ),
-                    _quantityButton(Icons.add),
-                  ],
-                ),
-              ),
-              const Spacer(),
-              Text(formatRupiah(product.total),
-                  style: const TextStyle(fontWeight: FontWeight.w700)),
-            ],
-          ),
         ],
       ),
     );
   }
-
-  Widget _quantityButton(IconData icon) => SizedBox(
-        width: 34,
-        height: 32,
-        child: Icon(icon, size: 16),
-      );
 }
 
 class SummaryCard extends StatelessWidget {
@@ -158,34 +148,33 @@ class SummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: AppColors.border),
-        borderRadius: BorderRadius.circular(9),
+        borderRadius: BorderRadius.circular(13),
       ),
       child: Column(
         children: [
           Row(
             children: [
-              const Text('3 jenis barang · 4 unit',
-                  style: TextStyle(color: AppColors.muted, fontSize: 11)),
-              const Spacer(),
-              Text(formatRupiah(28000),
-                  style: const TextStyle(color: AppColors.muted, fontSize: 11)),
-            ],
-          ),
-          if (!compact) const SizedBox(height: 8),
-          Row(
-            children: [
               const Text('Total pembayaran',
-                  style: TextStyle(fontWeight: FontWeight.w700)),
+                  style: TextStyle(
+                      color: AppColors.muted, fontSize: 11)),
               const Spacer(),
-              Text(formatRupiah(28000),
+              Text(formatRupiah(82000),
                   style: const TextStyle(
                       fontSize: 21, fontWeight: FontWeight.w800)),
             ],
           ),
+          if (compact) ...[
+            const SizedBox(height: 5),
+            const Align(
+              alignment: Alignment.centerRight,
+              child: Text('3 item',
+                  style: TextStyle(color: AppColors.muted, fontSize: 11)),
+            ),
+          ],
         ],
       ),
     );

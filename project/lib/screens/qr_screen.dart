@@ -15,25 +15,23 @@ class QrScreen extends StatelessWidget {
           children: [
             const PosHeader(
               title: 'Pembayaran QRIS',
-              subtitle: 'MJ-261101-0042',
+              subtitle: 'Langkah 3 dari 4',
               showBack: true,
             ),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(16),
                 children: [
+                  const Center(child: Text('Menunggu pembayaran',
+                      style: TextStyle(fontWeight: FontWeight.w700))),
+                  const SizedBox(height: 10),
                   const Center(
-                    child: Text('Toko Maju Jaya',
-                        style: TextStyle(color: AppColors.muted)),
-                  ),
-                  const SizedBox(height: 5),
-                  const Center(
-                    child: Text('Rp28.000',
+                    child: Text('Rp82.000',
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.w800)),
                   ),
                   const Center(
-                    child: Text('Pindai untuk membayar pesanan ini',
+                    child: Text('Order INV-20261101-0042',
                         style: TextStyle(color: AppColors.muted, fontSize: 11)),
                   ),
                   const SizedBox(height: 26),
@@ -46,27 +44,16 @@ class QrScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        const Row(
-                          children: [
-                            Text('QRIS',
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w700)),
-                            Spacer(),
-                            Text('Midtrans · Sandbox',
-                                style: TextStyle(
-                                    color: AppColors.muted, fontSize: 10)),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 4),
                         Container(
                           width: 210,
                           height: 210,
                           color: Colors.white,
                           child: const Icon(Icons.qr_code_2,
-                              size: 190, color: AppColors.tealDark),
+                              size: 190, color: AppColors.navy),
                         ),
                         const SizedBox(height: 12),
-                        const Text('Ilustrasi sandbox · Tidak untuk pembayaran',
+                        const Text('Scan QR dengan aplikasi pembayaran pelanggan',
                             style: TextStyle(
                                 color: AppColors.muted, fontSize: 10)),
                       ],
@@ -76,12 +63,12 @@ class QrScreen extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
-                      color: AppColors.tealSoft,
+                      color: const Color(0xFFF1F5FA),
                       borderRadius: BorderRadius.circular(9),
                     ),
                     child: const Row(
                       children: [
-                        Text('Sisa waktu pembayaran\nBatas awal 15 menit',
+                        Text('Kedaluwarsa dalam',
                             style: TextStyle(
                                 color: AppColors.muted, fontSize: 10)),
                         Spacer(),
@@ -94,17 +81,6 @@ class QrScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 22),
-                  const Center(
-                    child: Text('◌  Menunggu pembayaran',
-                        style: TextStyle(fontWeight: FontWeight.w700)),
-                  ),
-                  const SizedBox(height: 8),
-                  const Center(
-                    child: Text('Status diperbarui otomatis setelah verifikasi server. '
-                        'Tidak perlu konfirmasi manual.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: AppColors.muted, fontSize: 10)),
-                  ),
                 ],
               ),
             ),

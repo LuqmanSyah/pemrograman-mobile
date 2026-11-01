@@ -8,8 +8,8 @@ void main() {
   ) async {
     await tester.pumpWidget(const SmartPosApp());
 
-    expect(find.text('SmartPOS'), findsOneWidget);
-    expect(find.text('Siap melayani, Rina?'), findsOneWidget);
-    expect(find.text('Login'), findsOneWidget);
+    expect(find.text('KASIRKU'), findsOneWidget);
+    expect(find.text('Masuk untuk mulai berjualan'), findsOneWidget);
+    expect(find.text('Masuk'), findsOneWidget);
   });
 }

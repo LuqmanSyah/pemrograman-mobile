@@ -15,12 +15,12 @@ class ReceiptScreen extends StatelessWidget {
         child: Column(
           children: [
             PosHeader(
-              title: 'Struk transaksi',
-              subtitle: 'MJ-261101-0042',
+              title: 'Pembayaran QRIS berhasil',
+              subtitle: '01 Nov 2026 • Kasir Rina',
               action: CircleAvatar(
                 radius: 15,
                 backgroundColor: AppColors.tealSoft,
-                child: const Text('R', style: TextStyle(color: AppColors.teal)),
+                child: const Text('K', style: TextStyle(color: AppColors.primary)),
               ),
             ),
             Expanded(
@@ -29,12 +29,12 @@ class ReceiptScreen extends StatelessWidget {
                 children: [
                   const Row(
                     children: [
-                      Icon(Icons.check_circle, color: AppColors.teal),
+                      Icon(Icons.check_circle, color: AppColors.success),
                       SizedBox(width: 8),
                       Text(
-                        'Lunas',
+                        'Pembayaran QRIS berhasil',
                         style: TextStyle(
-                          color: AppColors.teal,
+                          color: AppColors.success,
                           fontSize: 20,
                           fontWeight: FontWeight.w800,
                         ),
@@ -43,8 +43,7 @@ class ReceiptScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    'Server telah memverifikasi notifikasi Midtrans. '
-                    'Pembayaran QRIS berhasil.',
+                    'Stok diperbarui otomatis',
                     style: TextStyle(color: AppColors.muted, fontSize: 11),
                   ),
                   const SizedBox(height: 26),
@@ -60,13 +59,13 @@ class ReceiptScreen extends StatelessWidget {
                       children: [
                         const Center(
                           child: Text(
-                            'Toko Maju Jaya',
+                            'TOKO MAJU JAYA',
                             style: TextStyle(fontWeight: FontWeight.w700),
                           ),
                         ),
                         const Center(
                           child: Text(
-                            'BUKTI PEMBAYARAN · LUNAS',
+                            'Struk pembayaran',
                             style: TextStyle(
                               color: AppColors.muted,
                               fontSize: 9,
@@ -79,26 +78,24 @@ class ReceiptScreen extends StatelessWidget {
                         _receiptRow('Kasir', 'Rina'),
                         const Divider(height: 22),
                         _receiptRow(
-                          'Indomie Goreng',
-                          'Rp7.000',
-                          detail: '2 × Rp3.500',
+                          'Kopi Susu Gula Aren',
+                          'Rp30.000',
+                          detail: '2 x Rp15.000',
                         ),
                         _receiptRow(
-                          'Aqua 600 ml',
-                          'Rp4.000',
-                          detail: '1 × Rp4.000',
+                          'Nasi Goreng Spesial',
+                          'Rp28.000',
+                          detail: '1 x Rp28.000',
                         ),
                         _receiptRow(
-                          'Gula Pasir 1 kg',
-                          'Rp17.000',
-                          detail: '1 × Rp17.000',
+                          'Es Teh Lemon',
+                          'Rp24.000',
+                          detail: '2 x Rp12.000',
                         ),
                         const Divider(height: 22),
-                        _receiptRow('Total', formatRupiah(28000), bold: true),
+                        _receiptRow('Total', formatRupiah(82000), bold: true),
                         const SizedBox(height: 12),
-                        _receiptRow('Metode', 'QRIS'),
-                        _receiptRow('Dibayar', formatRupiah(28000)),
-                        _receiptRow('Kembalian', 'Rp0'),
+                        _receiptRow('Metode', 'QRIS • LUNAS'),
                         const SizedBox(height: 8),
                         const Center(
                           child: Text(

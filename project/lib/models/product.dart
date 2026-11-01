@@ -16,22 +16,22 @@ class Product {
 
 const products = [
   Product(
-    name: 'Indomie Goreng',
-    price: 3500,
-    sku: '899100',
+    name: 'Kopi Susu Gula Aren',
+    price: 15000,
+    sku: 'A01',
     quantity: 2,
   ),
   Product(
-    name: 'Aqua 600 ml',
-    price: 4000,
-    sku: '899200',
+    name: 'Nasi Goreng Spesial',
+    price: 28000,
+    sku: 'B02',
     quantity: 1,
   ),
   Product(
-    name: 'Gula Pasir 1 kg',
-    price: 17000,
-    sku: '899300',
-    quantity: 1,
+    name: 'Es Teh Lemon',
+    price: 12000,
+    sku: 'C03',
+    quantity: 2,
   ),
 ];
 

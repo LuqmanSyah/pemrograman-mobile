@@ -22,7 +22,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           children: [
             const PosHeader(
               title: 'Pembayaran',
-              subtitle: 'MJ-261101-0042',
+              subtitle: 'Langkah 2 dari 4',
               showBack: true,
             ),
             Expanded(
@@ -31,16 +31,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 children: [
                   const SummaryCard(compact: true),
                   const SizedBox(height: 18),
-                  const Text('Pilih metode pembayaran',
+                  const Text('Metode pembayaran',
                       style: TextStyle(fontWeight: FontWeight.w700)),
                   const SizedBox(height: 5),
-                  const Text('Selesaikan transaksi dengan tunai atau QRIS.',
-                      style: TextStyle(color: AppColors.muted, fontSize: 11)),
-                  const SizedBox(height: 12),
                   _PaymentOption(
                     title: 'Tunai',
-                    subtitle: 'Masukkan uang diterima untuk menghitung '
-                        'kembalian pada langkah berikutnya.',
+                    subtitle: 'Bayar langsung di kasir',
                     icon: Icons.payments_outlined,
                     selected: _method == 'Tunai',
                     onTap: () => setState(() => _method = 'Tunai'),
@@ -48,8 +44,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   const SizedBox(height: 9),
                   _PaymentOption(
                     title: 'QRIS',
-                    subtitle: 'Pelanggan memindai QR melalui aplikasi bank atau '
-                        'dompet digital.',
+                    subtitle: 'Digital • Midtrans sandbox',
                     icon: Icons.qr_code_2,
                     selected: _method == 'QRIS',
                     onTap: () => setState(() => _method = 'QRIS'),

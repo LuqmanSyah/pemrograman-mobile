@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
 abstract final class AppColors {
-  static const teal = Color(0xFF078B83);
-  static const tealDark = Color(0xFF12302E);
-  static const tealSoft = Color(0xFFE2F2F0);
-  static const background = Color(0xFFF4F8F7);
-  static const text = Color(0xFF193331);
-  static const muted = Color(0xFF6D8381);
-  static const border = Color(0xFFD9E4E2);
+  static const primary = Color(0xFF2864E8);
+  static const primarySoft = Color(0xFFEAF1FF);
+  static const navy = Color(0xFF111827);
+  static const background = Color(0xFFF6F8FC);
+  static const text = Color(0xFF172033);
+  static const muted = Color(0xFF71809A);
+  static const border = Color(0xFFDCE4F0);
+  static const success = Color(0xFF12A653);
+  static const warningSoft = Color(0xFFFFF2C9);
+  static const warning = Color(0xFFB45309);
+  static const teal = primary;
+  static const tealSoft = primarySoft;
+  static const tealDark = navy;
 }
 
 abstract final class AppTheme {
@@ -15,8 +21,8 @@ abstract final class AppTheme {
         useMaterial3: true,
         scaffoldBackgroundColor: AppColors.background,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: AppColors.teal,
-          primary: AppColors.teal,
+          seedColor: AppColors.primary,
+          primary: AppColors.primary,
           surface: Colors.white,
         ),
         fontFamily: 'Roboto',
@@ -32,16 +38,16 @@ abstract final class AppTheme {
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(9),
+          borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: AppColors.border),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(9),
+          borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: AppColors.border),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(9),
-            borderSide: const BorderSide(color: AppColors.teal, width: 1.5),
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
           ),
         ),
       );
