@@ -4,6 +4,7 @@ import '../models/product.dart';
 import '../theme/app_theme.dart';
 import '../widgets/pos_widgets.dart';
 import 'payment_screen.dart';
+import 'scanner_screen.dart';
 
 class CashierScreen extends StatelessWidget {
   const CashierScreen({super.key});
@@ -40,11 +41,38 @@ class CashierScreen extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.all(16),
                 children: [
-                  const TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Cari produk atau barcode',
-                      prefixIcon: Icon(Icons.search),
-                    ),
+                  Row(
+                    children: [
+                      const Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Cari produk atau barcode',
+                            prefixIcon: Icon(Icons.search),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      SizedBox(
+                        height: 52,
+                        width: 52,
+                        child: FilledButton(
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const ScannerScreen(),
+                            ),
+                          ),
+                          style: FilledButton.styleFrom(
+                            backgroundColor: AppColors.navy,
+                            padding: EdgeInsets.zero,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Icon(Icons.qr_code_scanner, size: 22),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
                   Row(

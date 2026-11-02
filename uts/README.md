@@ -20,9 +20,10 @@ saling terhubung:
 
 1. **Login** - halaman masuk kasir.
 2. **Antarmuka kasir** - menampilkan pencarian produk dan keranjang belanja.
-3. **Metode pembayaran** - pilihan pembayaran tunai atau QRIS.
-4. **Pembayaran QRIS** - menampilkan kode QR dan status menunggu pembayaran.
-5. **Transaksi berhasil** - menampilkan ringkasan dan struk pembayaran.
+3. **Pemindai produk** - simulasi pemindaian atau pencarian barcode produk.
+4. **Metode pembayaran** - pilihan pembayaran tunai atau QRIS.
+5. **Pembayaran QRIS** - menampilkan kode QR dan status menunggu pembayaran.
+6. **Transaksi berhasil** - menampilkan ringkasan dan struk pembayaran.
 
 ## Pemetaan Alur Mockup dan Wireframe
 
@@ -34,15 +35,16 @@ diimplementasikan adalah:
 | ------ | -------------- | ----------------------------- |
 | 1 | P1 Login | Login |
 | 2 | P2 Kasir | Antarmuka Kasir |
-| 3 | P4 Pembayaran | Pilih Metode Bayar |
-| 4 | P5 QRIS | Scan QRIS & Menunggu |
-| 5 | P6 Struk | Transaksi Berhasil |
+| 3 | P3 Pemindai | Pemindaian Produk |
+| 4 | P4 Pembayaran | Pilih Metode Bayar |
+| 5 | P5 QRIS | Scan QRIS & Menunggu |
+| 6 | P6 Struk | Transaksi Berhasil |
 
 Dengan demikian, alur utama yang digunakan adalah **Alur B: Pembayaran
 QRIS** pada PRD, dengan alur pendukung login, memasukkan produk ke keranjang,
 memilih metode pembayaran, dan menampilkan struk. Layar **P3 Pemindai**
-tercantum dalam PRD, tetapi tidak termasuk dalam rangkaian mockup dan
-wireframe yang diimplementasikan pada UTS.
+sekarang juga tersedia sebagai bagian dari rangkaian mockup dan wireframe
+yang diimplementasikan pada UTS.
 
 Dalam roadmap BRD, implementasi ini termasuk **tahap 2: Aplikasi POS**.
 Bagian pembayaran QRIS dan status pembayaran terkait dengan **tahap 3:
@@ -58,6 +60,7 @@ keperluan demonstrasi antarmuka dan alur transaksi.
 - Tampilan antarmuka mengikuti desain mockup.
 - Navigasi antarhalaman transaksi.
 - Daftar produk dan total pembayaran.
+- Pemindaian produk melalui simulasi kamera atau input barcode.
 - Pilihan metode pembayaran tunai dan QRIS.
 - Simulasi pembayaran QRIS berhasil.
 - Tampilan struk transaksi.
@@ -75,7 +78,8 @@ lib/
 │   ├── login_screen.dart
 │   ├── payment_screen.dart
 │   ├── qr_screen.dart
-│   └── receipt_screen.dart
+│   ├── receipt_screen.dart
+│   └── scanner_screen.dart
 ├── theme/
 │   └── app_theme.dart
 └── widgets/
