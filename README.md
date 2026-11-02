@@ -17,6 +17,23 @@ Tugas mata kuliah **Pemrograman Mobile** menggunakan **Flutter** (Dart).
 | 5         | [`pertemuan5/`](pertemuan5/) | Penyimpanan lokal, SQLite, CRUD, dan `SharedPreferences`                               | [README](pertemuan5/README.md) · [Tugas](pertemuan5/docs/tugas-pertemuan-5.md) |
 | 6         | [`pertemuan6/`](pertemuan6/) | Navigasi, animasi, theming, dan preferensi tema                                        | [README](pertemuan6/README.md) · [Tugas](pertemuan6/docs/tugas-pertemuan-6.md) |
 
+## UTS
+
+Folder [`uts/`](uts/) berisi implementasi aplikasi kasir **Kasirku**
+berdasarkan mockup. Aplikasi ini mensimulasikan alur transaksi kasir mulai
+dari login, memilih produk, memilih metode pembayaran, pembayaran QRIS, hingga
+menampilkan struk transaksi berhasil.
+
+Fitur utama:
+
+- Halaman login kasir.
+- Antarmuka keranjang dan daftar produk.
+- Pilihan pembayaran tunai dan QRIS.
+- Simulasi pembayaran QRIS.
+- Ringkasan dan struk transaksi.
+
+Dokumentasi lengkap UTS tersedia di [README UTS](uts/README.md).
+
 ## Struktur Folder
 
 ```
@@ -27,7 +44,8 @@ pemob/
 ├── pertemuan3/      # Form, validasi, Provider, dan Daftar Belanja
 ├── pertemuan4/      # Asynchronous, REST API, dan Daftar Postingan
 ├── pertemuan5/      # SQLite, SharedPreferences, dan Pencatat Pengeluaran
-└── pertemuan6/      # Navigasi, animasi, theming, dan preferensi tema
+├── pertemuan6/      # Navigasi, animasi, theming, dan preferensi tema
+└── uts/             # Implementasi mockup aplikasi kasir Kasirku
 ```
 
 Setiap folder pertemuan memiliki modul PDF pada folder `docs/`, implementasi pada `lib/`, serta dokumentasi tugas masing-masing.
