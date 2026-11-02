@@ -49,6 +49,10 @@ Bagian pembayaran QRIS dan status pembayaran terkait dengan **tahap 3:
 Integrasi Midtrans**. Integrasi pada project ini masih berupa simulasi untuk
 keperluan demonstrasi antarmuka dan alur transaksi.
 
+## Desain Figma
+
+**Wireframe & Mockup:** [Buka desain di Figma](https://www.figma.com/design/800oScXUv6ye8LN1gbOl8c/Pemmob?t=kGx3eEqawHOClFxc-1)
+
 ## Fitur
 
 - Tampilan antarmuka mengikuti desain mockup.
