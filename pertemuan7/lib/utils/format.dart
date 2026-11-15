@@ -2,7 +2,8 @@ String rupiah(int value) {
   final negative = value < 0;
   final digits = value.abs().toString();
   final formatted = digits.replaceAllMapped(
-    RegExp(r'(?=(\d{3})+(?!\d))'),
+    // (?<=\d) mencegah titik di depan angka, misalnya '.105.000'.
+    RegExp(r'(?<=\d)(?=(\d{3})+(?!\d))'),
     (match) => '.',
   );
   return '${negative ? '-' : ''}Rp $formatted';

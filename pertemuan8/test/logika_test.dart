@@ -8,6 +8,10 @@ void main() {
       expect(rupiah(0), 'Rp 0');
       expect(rupiah(50000), 'Rp 50.000');
       expect(rupiah(1250000), 'Rp 1.250.000');
+      // Jumlah digit kelipatan 3 tidak boleh diawali titik.
+      expect(rupiah(100), 'Rp 100');
+      expect(rupiah(105000), 'Rp 105.000');
+      expect(rupiah(-250000), '-Rp 250.000');
       expect(rupiah(-25000), '-Rp 25.000');
     });
 
