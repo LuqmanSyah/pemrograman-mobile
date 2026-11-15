@@ -11,4 +11,9 @@ Simpan tangkapan layar di folder ini dengan nama berkas berikut. Keenamnya wajib
 | 5 | `mode-gelap.png` | Halaman mana pun saat **mode gelap** aktif |
 | 6 | `tabungan-negatif.png` | Tab **Hari ini** saat pengeluaran lebih besar dari pemasukan (angka merah dan pesan peringatan) |
 
-Tangkapan layar tambahan (opsional): `cari.png` untuk halaman **Cari kegiatan** dengan filter jenis/kategori.
+Tangkapan layar tambahan (opsional):
+
+- `laporan-7-hari.png`: halaman Laporan yang di-scroll ke bagian **7 hari terakhir**
+- `cari.png`: halaman **Cari kegiatan** dengan filter jenis Pengeluaran
+
+> **Catatan:** gambar yang ada sekarang adalah render sementara dari `flutter test`. Kode aplikasinya asli, database SQLite-nya berisi data contoh skenario modul 3.2, dan ukurannya 1080×2340, tetapi tanpa status bar HP. Ganti dengan tangkapan dari emulator atau HP memakai nama berkas yang sama.
