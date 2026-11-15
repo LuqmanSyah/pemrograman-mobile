@@ -16,7 +16,7 @@ Tugas mata kuliah **Pemrograman Mobile** menggunakan **Flutter** (Dart).
 | 4         | [`pertemuan4/`](pertemuan4/) | Asynchronous, REST API, `FutureBuilder`, dan pengambilan data JSON                     | [README](pertemuan4/README.md) · [Tugas](pertemuan4/docs/tugas-pertemuan-4.md) |
 | 5         | [`pertemuan5/`](pertemuan5/) | Penyimpanan lokal, SQLite, CRUD, dan `SharedPreferences`                               | [README](pertemuan5/README.md) · [Tugas](pertemuan5/docs/tugas-pertemuan-5.md) |
 | 6         | [`pertemuan6/`](pertemuan6/) | Navigasi, animasi, theming, dan preferensi tema                                        | [README](pertemuan6/README.md) · [Tugas](pertemuan6/docs/tugas-pertemuan-6.md) |
-| 7         | [`pertemuan7/`](pertemuan7/) | Mini proyek **TabungKu**: pencatat kegiatan dan tabungan dengan SQLite                 | [README](pertemuan7/README.md) · [Modul](pertemuan7/docs/modul-praktikum-flutter-pertemuan-7.pdf) |
+| 7         | [`pertemuan7/`](pertemuan7/) | Mini proyek **TabungKu**: pencatat kegiatan dan tabungan dengan SQLite                 | [README](pertemuan7/README.md) · [Modul](pertemuan7/docs/modul-praktikum-flutter-pertemuan-7.md) |
 | 8         | [`pertemuan8/`](pertemuan8/) | **TabungKu Cloud**: Docker Compose, MySQL, kerangka FastAPI, dan halaman status server | [README](pertemuan8/README.md) · [Modul](pertemuan8/docs/modul-praktikum-flutter-pertemuan-8.md) |
 
 ## Tugas
