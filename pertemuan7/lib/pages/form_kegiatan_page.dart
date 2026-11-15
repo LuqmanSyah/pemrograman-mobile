@@ -19,7 +19,6 @@ class _FormKegiatanPageState extends State<FormKegiatanPage> {
   late String date;
   late TipeKeuangan type;
   late String category;
-  final categories = ['Makan', 'Transport', 'Belajar', 'Hiburan', 'Lainnya'];
 
   @override
   void initState() {
@@ -115,7 +114,7 @@ class _FormKegiatanPageState extends State<FormKegiatanPage> {
                 labelText: 'Kategori',
                 border: OutlineInputBorder(),
               ),
-              items: categories
+              items: daftarKategori
                   .map(
                     (item) => DropdownMenuItem(value: item, child: Text(item)),
                   )
@@ -141,7 +140,8 @@ class _FormKegiatanPageState extends State<FormKegiatanPage> {
       lastDate: DateTime(2100),
       initialDate: DateTime.tryParse(date) ?? DateTime.now(),
     );
-    if (picked != null) setState(() => date = tanggal(picked));
+    if (!mounted || picked == null) return;
+    setState(() => date = tanggal(picked));
   }
 
   Future<void> _save() async {
@@ -157,6 +157,7 @@ class _FormKegiatanPageState extends State<FormKegiatanPage> {
         kategori: type == TipeKeuangan.pengeluaran ? category : '-',
       ),
     );
-    if (mounted) Navigator.pop(context);
+    if (!mounted) return;
+    Navigator.pop(context);
   }
 }

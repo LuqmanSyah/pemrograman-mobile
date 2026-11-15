@@ -7,6 +7,13 @@ import '../utils/format.dart';
 import '../widgets/kegiatan_tile.dart';
 import '../widgets/ringkasan_card.dart';
 
+/// Data halaman Hari Ini dalam satu Future.
+class DataHari {
+  const DataHari(this.summary, this.activities);
+  final Ringkasan summary;
+  final List<Kegiatan> activities;
+}
+
 class BerandaPage extends StatefulWidget {
   const BerandaPage({super.key, required this.settings});
   final PengaturanState settings;
@@ -16,13 +23,12 @@ class BerandaPage extends StatefulWidget {
 
 class _BerandaPageState extends State<BerandaPage> {
   final today = tanggal(DateTime.now());
-  late Future<List<Kegiatan>> activities;
-  late Future<Ringkasan> report;
+  late Future<DataHari> data;
 
   @override
   void initState() {
     super.initState();
-    _reload();
+    data = _fetch();
     versiData.addListener(_reload);
   }
 
@@ -33,25 +39,47 @@ class _BerandaPageState extends State<BerandaPage> {
   }
 
   void _reload() {
-    activities = DbHelper.pada(today);
-    report = DbHelper.ringkasan(today);
-    if (mounted) setState(() {});
+    setState(() {
+      data = _fetch(); // Future baru -> FutureBuilder memuat ulang
+    });
+  }
+
+  Future<DataHari> _fetch() async {
+    final summary = await DbHelper.ringkasan(today);
+    final activities = await DbHelper.pada(today);
+    return DataHari(summary, activities);
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('TabungKu')),
+    appBar: AppBar(
+      title: const Text('TabungKu'),
+      actions: [
+        IconButton(
+          tooltip: 'Cari kegiatan',
+          icon: const Icon(Icons.search),
+          onPressed: () => Navigator.pushNamed(context, '/cari'),
+        ),
+      ],
+    ),
     floatingActionButton: FloatingActionButton(
       onPressed: () => _openForm(),
       child: const Icon(Icons.add),
     ),
-    body: FutureBuilder(
-      future: Future.wait([report, activities]),
+    body: FutureBuilder<DataHari>(
+      future: data,
       builder: (context, snapshot) {
-        if (!snapshot.hasData)
+        // Spinner hanya saat data belum pernah ada, supaya saat memuat ulang
+        // progress bar beranimasi dari nilai sebelumnya (tidak berkedip).
+        if (snapshot.connectionState == ConnectionState.waiting &&
+            !snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
-        final summary = snapshot.data![0] as Ringkasan;
-        final list = snapshot.data![1] as List<Kegiatan>;
+        }
+        if (snapshot.hasError) {
+          return Center(child: Text('Gagal memuat data: ${snapshot.error}'));
+        }
+        final summary = snapshot.data!.summary;
+        final list = snapshot.data!.activities;
         return ListView(
           padding: const EdgeInsets.all(20),
           children: [
@@ -99,24 +127,8 @@ class _BerandaPageState extends State<BerandaPage> {
   }
 
   Future<void> _delete(Kegiatan item) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Hapus kegiatan?'),
-        content: Text(item.judul),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Batal'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text('Hapus'),
-          ),
-        ],
-      ),
-    );
-    if (confirmed == true) await DbHelper.hapus(item.id!);
+    final confirmed = await konfirmasiHapus(context, item);
+    if (confirmed) await DbHelper.hapus(item.id!);
   }
 }
 

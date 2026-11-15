@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pages/beranda_page.dart';
+import 'pages/cari_page.dart';
 import 'pages/form_kegiatan_page.dart';
 import 'pages/shell_page.dart';
 import 'state/pengaturan.dart';
@@ -45,6 +46,7 @@ class TabungKu extends StatelessWidget {
             initialDate: args.initialDate,
           );
         },
+        '/cari': (context) => const CariPage(),
       },
     ),
   );

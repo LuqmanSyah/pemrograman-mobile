@@ -4,13 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PengaturanState extends ChangeNotifier {
   bool gelap = false;
   int target = 20000;
-  Color warna = const Color(0xff136f63);
+  Color warna = Colors.teal; // ada di pilihan warna, jadi tanda centang muncul
 
   Future<void> load() async {
     final prefs = await SharedPreferences.getInstance();
     gelap = prefs.getBool('gelap') ?? false;
     target = prefs.getInt('target') ?? 20000;
-    warna = Color(prefs.getInt('warna') ?? 0xff136f63);
+    warna = Color(prefs.getInt('warna') ?? Colors.teal.toARGB32());
     notifyListeners();
   }
 
