@@ -1,5 +1,13 @@
 enum TipeKeuangan { tanpa, pemasukan, pengeluaran }
 
+const labelTipe = {
+  TipeKeuangan.tanpa: 'Tidak melibatkan uang',
+  TipeKeuangan.pemasukan: 'Pemasukan',
+  TipeKeuangan.pengeluaran: 'Pengeluaran',
+};
+
+const daftarKategori = ['Makan', 'Transport', 'Belajar', 'Hiburan', 'Lainnya'];
+
 class Kegiatan {
   Kegiatan({
     this.id,
@@ -46,10 +54,23 @@ class Ringkasan {
     this.selesai = 0,
     this.masuk = 0,
     this.keluar = 0,
+    this.masukSelesai = 0,
+    this.keluarSelesai = 0,
   });
   final int jumlah;
   final int selesai;
+
+  // Rencana: semua kegiatan pada tanggal itu (aturan bisnis utama).
   final int masuk;
   final int keluar;
+
+  // Realisasi: hanya kegiatan yang sudah dicentang selesai.
+  final int masukSelesai;
+  final int keluarSelesai;
+
   int get tabungan => masuk - keluar;
+  int get tabunganRealisasi => masukSelesai - keluarSelesai;
+
+  /// Positif berarti realisasi lebih baik dari rencana.
+  int get selisih => tabunganRealisasi - tabungan;
 }

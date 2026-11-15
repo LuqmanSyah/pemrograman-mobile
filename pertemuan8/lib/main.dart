@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'pages/beranda_page.dart';
+import 'pages/cari_page.dart';
 import 'pages/form_kegiatan_page.dart';
 import 'pages/shell_page.dart';
 import 'pages/status_server_page.dart';
@@ -37,6 +38,7 @@ class TabungKu extends StatelessWidget {
       themeMode: settings.gelap ? ThemeMode.dark : ThemeMode.light,
       home: ShellPage(settings: settings),
       routes: {
+        '/cari': (context) => const CariPage(),
         '/status': (context) => const StatusServerPage(),
         '/form-kegiatan': (context) {
           final args =

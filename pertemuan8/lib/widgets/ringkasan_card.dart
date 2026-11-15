@@ -15,6 +15,8 @@ class RingkasanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final negative = summary.tabungan < 0;
     final progress = (summary.tabungan / settings.target).clamp(0.0, 1.0);
     return Card(
       child: Padding(
@@ -25,22 +27,23 @@ class RingkasanCard extends StatelessWidget {
             Text(
               rupiah(summary.tabungan),
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                color: summary.tabungan < 0 ? Colors.red : Colors.teal,
+                color: negative ? colors.error : colors.primary,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
-              summary.tabungan < 0
+              negative
                   ? 'Peringatan: tabungan negatif'
                   : summary.tabungan >= settings.target
                   ? 'Target tercapai!'
                   : 'Target ${rupiah(settings.target)}',
+              style: TextStyle(color: negative ? colors.error : null),
             ),
             const SizedBox(height: 12),
             TweenAnimationBuilder<double>(
               tween: Tween(begin: 0, end: progress),
               duration: const Duration(milliseconds: 500),
-              builder: (_, value, __) => LinearProgressIndicator(value: value),
+              builder: (_, value, _) => LinearProgressIndicator(value: value),
             ),
             const SizedBox(height: 12),
             Text(
