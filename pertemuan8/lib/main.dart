@@ -39,7 +39,7 @@ class TabungKu extends StatelessWidget {
       home: ShellPage(settings: settings),
       routes: {
         '/cari': (context) => const CariPage(),
-        '/status': (context) => const StatusServerPage(),
+        '/status': (context) => StatusServerPage(baseUrl: settings.apiUrl),
         '/form-kegiatan': (context) {
           final args =
               ModalRoute.of(context)!.settings.arguments

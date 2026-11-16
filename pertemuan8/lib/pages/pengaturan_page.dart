@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../config/api_config.dart';
 import '../state/pengaturan.dart';
 import '../utils/format.dart';
 
@@ -52,6 +53,13 @@ class PengaturanPage extends StatelessWidget {
         ),
         const Divider(),
         ListTile(
+          leading: const Icon(Icons.link),
+          title: const Text('Alamat API'),
+          subtitle: Text(settings.apiUrl),
+          trailing: const Icon(Icons.edit_outlined),
+          onTap: () => _ubahApiUrl(context),
+        ),
+        ListTile(
           leading: const Icon(Icons.dns_outlined),
           title: const Text('Status server'),
           subtitle: const Text('Periksa koneksi ke TabungKu API'),
@@ -60,5 +68,85 @@ class PengaturanPage extends StatelessWidget {
         ),
       ],
     ),
+  );
+
+  Future<void> _ubahApiUrl(BuildContext context) async {
+    final hasil = await showDialog<_AksiApiUrl>(
+      context: context,
+      builder: (_) => _DialogApiUrl(awal: settings.apiUrl),
+    );
+    switch (hasil) {
+      case _Simpan(:final url):
+        await settings.setApiUrl(url);
+      case _Reset():
+        await settings.resetApiUrl();
+      case null:
+        return; // dibatalkan
+    }
+  }
+}
+
+sealed class _AksiApiUrl {}
+
+class _Simpan extends _AksiApiUrl {
+  _Simpan(this.url);
+  final String url;
+}
+
+class _Reset extends _AksiApiUrl {}
+
+class _DialogApiUrl extends StatefulWidget {
+  const _DialogApiUrl({required this.awal});
+  final String awal;
+
+  @override
+  State<_DialogApiUrl> createState() => _DialogApiUrlState();
+}
+
+class _DialogApiUrlState extends State<_DialogApiUrl> {
+  final _formKey = GlobalKey<FormState>();
+  late final _controller = TextEditingController(text: widget.awal);
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _simpan() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.pop(context, _Simpan(_controller.text));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+    title: const Text('Alamat API'),
+    content: Form(
+      key: _formKey,
+      child: TextFormField(
+        key: const Key('field-api-url'),
+        controller: _controller,
+        autofocus: true,
+        keyboardType: TextInputType.url,
+        decoration: const InputDecoration(
+          hintText: 'http://10.0.2.2:8000',
+          helperText: 'Emulator: 10.0.2.2 · HP fisik: IP laptop',
+        ),
+        validator: validasiApiUrl,
+        onFieldSubmitted: (_) => _simpan(),
+      ),
+    ),
+    actions: [
+      TextButton(
+        onPressed: () => Navigator.pop(context, _Reset()),
+        child: const Text('Bawaan'),
+      ),
+      TextButton(
+        onPressed: () => Navigator.pop(context),
+        child: const Text('Batal'),
+      ),
+      FilledButton(onPressed: _simpan, child: const Text('Simpan')),
+    ],
   );
 }
