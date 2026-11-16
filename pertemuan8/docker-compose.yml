@@ -35,5 +35,15 @@ services:
       mysql:
         condition: service_healthy
 
+  adminer:
+    image: adminer:5
+    restart: unless-stopped
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql # nama layanan MySQL di jaringan compose
+    ports:
+      - "8081:8080"
+    depends_on:
+      - mysql
+
 volumes:
   mysql_data:
