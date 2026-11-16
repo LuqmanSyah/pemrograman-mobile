@@ -1,5 +1,7 @@
 # Pertemuan 8 — TabungKu Cloud: Docker Compose dan Kerangka Backend
 
+> Tugas pertemuan 8 (Adminer, `/health` dengan cek database, status API/database, alamat API di Pengaturan) beserta cara mengujinya: [docs/tugas-pertemuan-8.md](docs/tugas-pertemuan-8.md).
+
 Aplikasi TabungKu (pertemuan 7) ditambah backend FastAPI + MySQL yang dijalankan dengan Docker Compose, serta halaman **Status Server** di Flutter.
 
 ## Struktur
@@ -29,6 +31,7 @@ docker compose ps          # tunggu mysql "healthy" dan api "Up"
 
 - Health check: http://localhost:8000/health
 - Swagger UI: http://localhost:8000/docs
+- Adminer: http://localhost:8081 (server `mysql`)
 - MySQL dari laptop: `localhost:3307`
 
 Menghentikan: `docker compose down` (data tetap ada) atau `docker compose down -v` (data dihapus).
@@ -43,4 +46,4 @@ flutter run --dart-define=API_URL=http://192.168.1.10:8000  # HP fisik (ganti IP
 flutter test
 ```
 
-Buka **Pengaturan → Status server** untuk memeriksa koneksi ke API.
+Buka **Pengaturan → Status server** untuk memeriksa koneksi ke API dan database. Alamat API dapat diubah di **Pengaturan → Alamat API**.
